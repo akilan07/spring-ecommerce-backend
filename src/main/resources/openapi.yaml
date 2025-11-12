@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: E-Commerce Backend API
+  version: 1.0.0
+  description: "A minimal OpenAPI spec for a single GET endpoint returning a string."
+
+servers:
+  - url: http://localhost:8080
+    description: Local Development Server
+
+paths:
+  /working:
+    get:
+      tags:
+        - HealthCheck
+      summary: Check API working status
+      description: Returns a simple text message to confirm API is running.
+      operationId: getWorkingStatus
+      security:
+        - githubOAuth2:
+            - read:user
+      responses:
+        "200":
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: API is working fine!
+
+components:
+  securitySchemes:
+    githubOAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://github.com/login/oauth/authorize
+          tokenUrl: https://github.com/login/oauth/access_token
+          scopes:
+            read:user: Read user profile data
+            user:email: Access user email
