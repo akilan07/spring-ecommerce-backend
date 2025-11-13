@@ -1,6 +1,5 @@
-package com.akisha.spring_ecommerce_backend.api.impl;
+package com.akisha.spring_ecommerce_backend.controller;
 
-import com.akisha.spring_ecommerce_backend.api.HealthCheckApi;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

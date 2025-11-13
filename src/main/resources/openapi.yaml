@@ -27,6 +27,30 @@ paths:
               schema:
                 type: string
                 example: API is working fine!
+  /api/products:
+    post:
+      tags: [ Product ]
+      summary: Create a new product
+      operationId: createProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                ProductResponse:
+                  value:
+                    id: "b819364b-5b97-4d01-a273-d49a9bb95754"
+                    name: "iPhone 17 Pro"
+                    price: 170000.0
 
 components:
   securitySchemes:
@@ -39,3 +63,21 @@ components:
           scopes:
             read:user: Read user profile data
             user:email: Access user email
+
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "p123"
+        name:
+          type: string
+          example: "Wireless Mouse"
+        price:
+          type: number
+          format: double
+          example: 599.0
+      required:
+        - name
+        - price
