@@ -80,7 +80,10 @@ tasks.register('integrationTest', Test) {
 
     useJUnitPlatform()
 
-    systemProperty "testcontainers.ryuk.disabled", "true"
+    reports {
+        html.required.set(true)
+        junitXml.required.set(true)
+    }
 
     shouldRunAfter test
 }
