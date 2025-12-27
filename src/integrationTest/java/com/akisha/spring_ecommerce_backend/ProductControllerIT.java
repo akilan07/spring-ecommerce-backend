@@ -3,19 +3,19 @@ package com.akisha.spring_ecommerce_backend;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.akisha.spring_ecommerce_backend.config.MongoIntegrationTest;
 import com.akisha.spring_ecommerce_backend.config.MongoTestContainerConfig;
 import com.akisha.spring_ecommerce_backend.dto.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.testcontainers.context.ImportTestcontainers;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@MongoIntegrationTest
-@ImportTestcontainers(MongoTestContainerConfig.class)
-class ProductControllerIT {
+@SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
+class ProductControllerIT extends MongoTestContainerConfig{
 
     @Autowired
     MockMvc mockMvc;
