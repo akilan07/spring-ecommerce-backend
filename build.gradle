@@ -17,10 +17,30 @@ java {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir layout.buildDirectory.dir("generated/src/main/java")
+        }
+    }
+    integrationTest {
+        java {
+            srcDir file("src/integrationTest/java")
+        }
+        resources {
+            srcDir file("src/integrationTest/resources")
+        }
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 repositories {
@@ -44,11 +64,27 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:mongodb'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests'
+    group = 'verification'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    useJUnitPlatform()
+
+    shouldRunAfter test
+}
+
+check.dependsOn integrationTest
 
 openApiGenerate {
     generatorName = "spring"
@@ -68,12 +104,4 @@ openApiGenerate {
             @lombok.AllArgsConstructor
         """
     ]
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir layout.buildDirectory.dir("generated/src/main/java")
-        }
-    }
 }

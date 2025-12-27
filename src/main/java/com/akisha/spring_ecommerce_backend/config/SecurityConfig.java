@@ -23,7 +23,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@Profile("!test")
 public class SecurityConfig {
 
     @Bean

@@ -1,0 +1,23 @@
+package com.akisha.spring_ecommerce_backend.config;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MongoDBContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+@Testcontainers
+@TestConfiguration
+public class MongoTestContainerConfig {
+
+    @Container
+    public static final MongoDBContainer mongo =
+            new MongoDBContainer("mongo:7.0");
+
+    @DynamicPropertySource
+    static void mongoProps(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.uri", mongo::getReplicaSetUrl);
+    }
+
+}

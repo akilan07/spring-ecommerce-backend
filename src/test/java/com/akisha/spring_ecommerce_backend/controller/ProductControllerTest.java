@@ -38,7 +38,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void getProductById() throws Exception {
+    void shouldSaveProductWhenRequestIsValid() throws Exception {
         Product basicProduct = ProductFactory.getBasicProduct();
 
         mockMvc.perform(post("/api/products")
