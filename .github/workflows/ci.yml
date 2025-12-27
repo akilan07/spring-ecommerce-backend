@@ -20,6 +20,9 @@ jobs:
       - name: Verify Docker
         run: docker version
 
+      - name: Generate OpenAPI sources
+        run: ./gradlew openApiGenerate
+
       - name: Run unit tests
         run: ./gradlew test
 
