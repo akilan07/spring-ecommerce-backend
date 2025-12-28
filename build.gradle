@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.akisha'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 description = 'Basic E-Commerce project'
 
 java {
