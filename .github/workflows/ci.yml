@@ -29,7 +29,6 @@ jobs:
       - name: Run integration tests (Testcontainers)
         run: ./gradlew integrationTest
 
-      # 📦 Upload unit test report
       - name: Upload unit test report
         if: always()
         uses: actions/upload-artifact@v4
@@ -39,7 +38,6 @@ jobs:
             build/reports/tests/test
             build/test-results/test
 
-  # 📦 Upload integration test report
       - name: Upload integration test report
         if: always()
         uses: actions/upload-artifact@v4
