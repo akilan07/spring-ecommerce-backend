@@ -21,9 +21,6 @@ jobs:
           java-version: 17
           cache: gradle
 
-      - name: Verify Docker
-        run: docker version
-
       - name: Generate OpenAPI sources
         run: ./gradlew openApiGenerate
 
@@ -95,6 +92,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: docker/setup-docker-action@v4
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
